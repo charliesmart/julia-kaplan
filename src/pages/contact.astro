@@ -1,0 +1,139 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../data/site";
+---
+
+<BaseLayout
+  title="Contact"
+  description="TODO: short description of this page for search results."
+>
+  <p class="fade-up contact-p" style="--delay: 0.1s">
+    For any questions, or to set up an initial consultation, you can reach me by
+    email at <a
+      href="mailto:juliakaplanlcsw@gmail.com"
+      class="cta"
+      data-label="juliakaplanlcsw@gmail.com"
+      ><span>juliakaplanlcsw@gmail.com</span></a
+    >.
+  </p>
+</BaseLayout>
+
+<style>
+  .contact-p {
+    margin-top: var(--space-sm);
+    max-width: 700px;
+  }
+
+  .fade-up {
+    animation: fade-up 1s both cubic-bezier(0.22, 1, 0.36, 1);
+    animation-delay: var(--delay, 0s);
+  }
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(1.25rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  p {
+    font-size: 32px;
+    line-height: 1.33;
+    font-weight: 200;
+    font-family: var(--font-serif);
+  }
+
+  .cta {
+    display: inline-grid;
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    font-family: var(--font-serif);
+  }
+
+  .cta span,
+  .cta::before,
+  .cta::after {
+    grid-area: 1 / 1;
+  }
+
+  .cta::before,
+  .cta::after {
+    content: attr(data-label);
+    visibility: hidden;
+  }
+
+  .cta::before {
+    font-style: normal;
+  }
+
+  .cta::after {
+    font-style: italic;
+  }
+
+  .cta:hover span {
+    font-style: italic;
+  }
+
+  .lede {
+    margin-top: var(--space-sm);
+    font-size: var(--step-1);
+    color: var(--color-muted);
+  }
+
+  .details {
+    display: grid;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+  }
+
+  @media (min-width: 48rem) {
+    .details {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-lg);
+    }
+  }
+
+  h2 {
+    font-size: var(--step-1);
+  }
+
+  dl {
+    margin-top: var(--space-xs);
+  }
+
+  dt {
+    color: var(--color-muted);
+    font-size: var(--step--1);
+  }
+
+  dd {
+    margin: 0 0 var(--space-xs);
+  }
+
+  address {
+    margin-top: var(--space-xs);
+    font-style: normal;
+  }
+
+  .note {
+    margin-top: var(--space-xs);
+    color: var(--color-muted);
+    font-size: var(--step--1);
+  }
+
+  .crisis {
+    max-width: var(--measure);
+    margin-top: var(--space-lg);
+    padding: var(--space-sm);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-accent);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    font-size: var(--step--1);
+  }
+</style>

@@ -1,0 +1,157 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const intro = [
+  "I’m a licensed clinical social worker and psychotherapist based in New York City. I offer both in-person sessions in Downtown Brooklyn and virtual sessions.",
+  "<span class='accent'>My clients</span> often come to therapy during periods of transition or when anxiety, depression, trauma, or longstanding patterns begin to interfere with the life they want to lead. Many are thoughtful and high-functioning, yet sense that something needs to shift to live a more engaged and purposeful life.",
+  "<span class='accent'>My approach</span> is warm, curious, and direct. I work primarily from a relational psychodynamic perspective, exploring how your experiences have shaped your emotional patterns and relationships.",
+  "I am trained in EMDR and offer trauma-focused treatment for clients who are interested in this approach. EMDR can be used as a structured, focused treatment or integrated into ongoing psychotherapy.",
+  "I also integrate cognitive behavioral and other evidence-based approaches to provide practical tools for creating change in the here and now. I am an active therapist and believe that collaboration, humor, and empathy are essential to meaningful therapeutic work.",
+];
+
+const sections = [
+  {
+    heading: "My training",
+    paragraphs: [
+      "MSW at New York University",
+      "Postgraduate training at William Alanson White Institute for Interpersonal Psychoanalytic Psychotherapy",
+      "Trained in Mentalization Based Treatment (MBT)",
+      "Trained in EMDR",
+    ],
+  },
+  {
+    heading: "Initial consultation",
+    paragraphs: [
+      "We’ll start with a free initial phone conversation to see if we are a good fit and to schedule a time to meet.",
+    ],
+  },
+  {
+    heading: "Fees & insurance",
+    paragraphs: [
+      "I accept Aetna insurance and am out of network for all other insurances. We can discuss my fee in our initial phone consultation. I work on a sliding scale basis with clients, as needed.",
+      "I provide monthly superbills if you would like to submit for out-of-network reimbursement.",
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="About"
+  description="TODO: short description of this page for search results."
+>
+  <div class="prose">
+    <div class="intro-col">
+      {
+        intro.map((text, i) => (
+          <p
+            class="fade-up"
+            style={`--delay: ${(i * 0.1).toFixed(1)}s`}
+            set:html={text}
+          />
+        ))
+      }
+    </div>
+    <div class="details-col">
+      {
+        sections.map(({ heading, paragraphs }, sectionIndex) => (
+          <section>
+            <h2 class="fade-up">{heading}</h2>
+            {paragraphs.map((text, paragraphIndex) => (
+              <p
+                class="fade-up"
+                style={`--delay: ${(paragraphIndex * 0.1).toFixed(1)}s`}
+                set:html={text}
+              />
+            ))}
+          </section>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .prose {
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  @media (min-width: 48rem) {
+    .prose {
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+    }
+
+    .intro-col {
+      order: 1;
+      position: relative;
+      top: 0px;
+    }
+
+    .details-col {
+      order: 2;
+    }
+  }
+
+  .intro-col > * + * {
+    margin-top: var(--space-sm);
+  }
+
+  .details-col section + section {
+    margin-top: 30px;
+  }
+
+  .fade-up {
+    animation: fade-up 1s both cubic-bezier(0.22, 1, 0.36, 1);
+    animation-delay: var(--delay, 0s);
+  }
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(1.25rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .intro-col p,
+  .details-col p {
+    font-size: 20px;
+    line-height: 1.4;
+    font-weight: 300;
+    font-family: var(--font-serif);
+    margin-top: 0.5rem !important;
+  }
+
+  .intro-col p {
+    margin-bottom: 1rem;
+  }
+
+  .intro-col p:first-child {
+    font-size: 32px;
+    line-height: 1.33;
+    font-weight: 200;
+    font-family: var(--font-serif);
+    margin-bottom: 1em;
+  }
+
+  .details-col h2 {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    font-style: italic;
+    font-weight: 600;
+    margin-top: 0;
+  }
+
+  .details-col ul {
+    max-width: var(--measure);
+  }
+
+  :global(.accent) {
+    font-style: italic;
+    color: var(--color-accent);
+  }
+</style>

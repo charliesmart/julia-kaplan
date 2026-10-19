@@ -1,0 +1,51 @@
+---
+import { site } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="page inner">
+    <p class="name">{site.name}, {site.credentials}</p>
+    <p class="contact">
+      <a href={`tel:${site.phone}`}>{site.phoneDisplay}</a>
+      <span aria-hidden="true">&middot;</span>
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+    </p>
+    <p class="copyright">&copy; {year} {site.name}. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: auto;
+    border-top: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-muted);
+    font-size: var(--step--1);
+  }
+
+  .inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-xs) var(--space-md);
+    padding-block: var(--space-md);
+  }
+
+  p {
+    max-width: none;
+    margin: 0;
+  }
+
+  .name {
+    color: var(--color-text);
+  }
+
+  .contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+</style>

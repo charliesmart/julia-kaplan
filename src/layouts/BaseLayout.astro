@@ -1,0 +1,130 @@
+---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { site } from "../data/site";
+import "@fontsource/young-serif/400.css";
+import "@fontsource/inter/300.css";
+import "@fontsource/fraunces/300.css";
+import "@fontsource/fraunces/400-italic.css";
+import "@fontsource/fraunces/400.css";
+import "@fontsource/fraunces/600-italic.css";
+import "../styles/global.css";
+import youngSerifLatin from "@fontsource/young-serif/files/young-serif-latin-400-normal.woff2?url";
+import interLatin from "@fontsource/inter/files/inter-latin-300-normal.woff2?url";
+import frauncesLatin from "@fontsource/fraunces/files/fraunces-latin-400-normal.woff2?url";
+import frauncesLatin300 from "@fontsource/fraunces/files/fraunces-latin-300-normal.woff2?url";
+import frauncesLatin400Italic from "@fontsource/fraunces/files/fraunces-latin-400-italic.woff2?url";
+import frauncesLatin600Italic from "@fontsource/fraunces/files/fraunces-latin-600-italic.woff2?url";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = site.description } = Astro.props;
+
+const pageTitle =
+  title === site.name
+    ? `${site.name}, ${site.credentials}`
+    : `${title} | ${site.name}, ${site.credentials}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Psychologist",
+  name: `${site.name}, ${site.credentials}`,
+  url: site.url,
+  email: site.email,
+  telephone: site.phone,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: site.address.street,
+    addressLocality: site.address.city,
+    addressRegion: site.address.region,
+    postalCode: site.address.postalCode,
+    addressCountry: site.address.country,
+  },
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href={youngSerifLatin}
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href={interLatin}
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href={frauncesLatin}
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href={frauncesLatin300}
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href={frauncesLatin400Italic}
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href={frauncesLatin600Italic}
+      crossorigin
+    />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify(schema)}
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header />
+    <main id="main" class="page">
+      <slot />
+    </main>
+  </body>
+</html>
+
+<style>
+  main {
+    padding-block: var(--space-lg) var(--space-xl);
+  }
+</style>
