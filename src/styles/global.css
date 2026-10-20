@@ -122,7 +122,6 @@ ol {
   padding: 0.6rem 1rem;
   background: var(--color-surface);
   border-radius: var(--radius);
-  box-shadow: 0 2px 12px rgb(0 0 0 / 0.18);
   transform: translateY(-150%);
 }
 
